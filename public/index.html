@@ -1,43 +1,586 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Febyan Putra Hermawan · Portfolio</title>
+  <!-- Bootstrap 5 + Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <!-- Google Fonts (Inter) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <!-- AOS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      transition: background 0.3s, color 0.3s;
+    }
+    /* dark mode */
+    body.dark-mode {
+      background: #0f172a;
+      color: #e2e8f0;
+    }
+    body.dark-mode .card, body.dark-mode .glass-card {
+      background: rgba(30, 41, 59, 0.7) !important;
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255,255,255,0.05);
+      color: #e2e8f0;
+    }
+    body.dark-mode .navbar {
+      background: rgba(15, 23, 42, 0.85) !important;
+      backdrop-filter: blur(12px);
+    }
+    body.dark-mode .bg-soft {
+      background: #1e293b !important;
+    }
+    .glass-card {
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 24px;
+      box-shadow: 0 20px 40px -12px rgba(0,0,0,0.08);
+      transition: all 0.25s ease;
+    }
+    .glass-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 30px 50px -16px rgba(0,0,0,0.12);
+    }
+    .gradient-btn {
+      background: linear-gradient(135deg, #2563eb, #0d9488);
+      border: none;
+      color: #fff;
+      font-weight: 600;
+      padding: 10px 28px;
+      border-radius: 60px;
+      transition: 0.2s;
+      box-shadow: 0 8px 20px -8px rgba(37,99,235,0.3);
+    }
+    .gradient-btn:hover {
+      transform: scale(1.02);
+      box-shadow: 0 12px 28px -8px rgba(37,99,235,0.5);
+      color: #fff;
+    }
+    .gradient-outline-btn {
+      background: transparent;
+      border: 2px solid #2563eb;
+      color: #2563eb;
+      font-weight: 600;
+      padding: 10px 28px;
+      border-radius: 60px;
+      transition: 0.2s;
+    }
+    .gradient-outline-btn:hover {
+      background: #2563eb;
+      color: #fff;
+    }
+    .section-title {
+      font-weight: 700;
+      font-size: 2.2rem;
+      letter-spacing: -0.02em;
+    }
+    .badge-soft {
+      background: #e0f2fe;
+      color: #0369a1;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+    }
+    .dark-mode .badge-soft {
+      background: #1e293b;
+      color: #94a3b8;
+    }
+    .icon-circle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(37,99,235,0.08);
+      color: #2563eb;
+      font-size: 1.4rem;
+      transition: 0.2s;
+    }
+    .icon-circle:hover {
+      background: #2563eb;
+      color: #fff;
+    }
+    .profile-img {
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid #fff;
+      box-shadow: 0 16px 40px -10px rgba(0,0,0,0.15);
+    }
+    .dark-mode .profile-img { border-color: #1e293b; }
+    .stat-box {
+      background: rgba(255,255,255,0.5);
+      backdrop-filter: blur(4px);
+      border-radius: 20px;
+      padding: 12px 20px;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+    .dark-mode .stat-box {
+      background: rgba(30,41,59,0.4);
+      border-color: rgba(255,255,255,0.05);
+    }
+    .timeline-card {
+      border-left: 4px solid #2563eb;
+      padding-left: 20px;
+      margin-bottom: 32px;
+    }
+    .dark-mode .timeline-card { border-left-color: #0d9488; }
+    .skill-badge {
+      background: #eef2ff;
+      color: #1e293b;
+      padding: 6px 18px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin: 4px;
+      display: inline-block;
+    }
+    .dark-mode .skill-badge {
+      background: #1e293b;
+      color: #cbd5e1;
+    }
+    .footer {
+      background: #ffffffcc;
+      backdrop-filter: blur(6px);
+      border-top: 1px solid rgba(0,0,0,0.03);
+    }
+    .dark-mode .footer {
+      background: #0f172acc;
+      border-top: 1px solid rgba(255,255,255,0.02);
+    }
+    .navbar-toggler:focus { box-shadow: none; }
+    @media (max-width: 576px) {
+      .section-title { font-size: 1.8rem; }
+      .profile-img { width: 120px; height: 120px; }
+    }
+    /* smooth scroll */
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+  <!-- React + ReactDOM + Babel -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <!-- AOS JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script type="text/babel">
+    const { useState, useEffect, useRef } = React;
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+    // ----- COMPONENTS -----
+    const Navbar = ({ darkMode, toggleDark }) => {
+      return (
+        <nav className="navbar navbar-expand-lg fixed-top py-3" style={{ background: 'rgba(255,255,255,0.7)', backdropFilter: 'blur(12px)', borderBottom: '1px solid rgba(0,0,0,0.02)' }}>
+          <div className="container">
+            <a className="navbar-brand fw-bold fs-5" href="#">Febyan<span className="text-primary">.</span></a>
+            <button className="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+              <span className="navbar-toggler-icon"></span>
+            </button>
+            <div className="collapse navbar-collapse" id="navMenu">
+              <ul className="navbar-nav ms-auto mb-2 mb-lg-0 gap-2">
+                <li className="nav-item"><a className="nav-link" href="#about">About</a></li>
+                <li className="nav-item"><a className="nav-link" href="#experience">Experience</a></li>
+                <li className="nav-item"><a className="nav-link" href="#projects">Projects</a></li>
+                <li className="nav-item"><a className="nav-link" href="#skills">Skills</a></li>
+                <li className="nav-item"><a className="nav-link" href="#contact">Contact</a></li>
+                <li className="nav-item">
+                  <button className="btn btn-outline-secondary rounded-circle p-2 border-0" onClick={toggleDark} style={{ width: '44px', height: '44px' }}>
+                    <i className={`bi ${darkMode ? 'bi-sun-fill' : 'bi-moon-fill'}`}></i>
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      );
+    };
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
+    const Hero = () => (
+      <section id="hero" className="min-vh-100 d-flex align-items-center" style={{ paddingTop: '90px' }}>
+        <div className="container">
+          <div className="row g-5 align-items-center">
+            <div className="col-lg-6" data-aos="fade-up" data-aos-duration="800">
+              <div className="d-flex gap-3 mb-3">
+                <span className="badge-soft">Open to work</span>
+                <span className="badge-soft">📍 Indonesia</span>
+              </div>
+              <h1 className="display-4 fw-bold lh-1">Febyan Putra Hermawan</h1>
+              <h3 className="fs-4 fw-light text-primary-emphasis mt-2">Information Systems Graduate · Process Automation · Web Developer</h3>
+              <p className="lead mt-3 text-secondary" style={{ maxWidth: '90%' }}>
+                Information Systems graduate with experience in merchant verification, content registration, process automation, and web development. Passionate about building efficient digital solutions using React, Laravel, JavaScript, Google Apps Script, and MySQL.
+              </p>
+              <div className="d-flex flex-wrap gap-3 mt-4">
+                <a href="cvfebyan.pdf" className="btn gradient-btn"><i className="bi bi-download me-2"></i>Download CV</a>
+                <a href="#projects" className="btn gradient-outline-btn">View Projects</a>
+              </div>
+              <div className="d-flex gap-3 mt-4">
+                <a href="#" className="icon-circle"><i className="bi bi-github"></i></a>
+                <a href="#" className="icon-circle"><i className="bi bi-linkedin"></i></a>
+                <a href="#" className="icon-circle"><i className="bi bi-envelope"></i></a>
+                <a href="#" className="icon-circle"><i className="bi bi-whatsapp"></i></a>
+              </div>
+              <div className="row row-cols-2 row-cols-sm-4 g-2 mt-4">
+                <div className="col"><div className="stat-box text-center"><strong>20k+</strong><br/><span className="small">Merchants</span></div></div>
+                <div className="col"><div className="stat-box text-center"><strong>99%</strong><br/><span className="small">Accuracy</span></div></div>
+                <div className="col"><div className="stat-box text-center"><strong>150</strong><br/><span className="small">Tickets/Day</span></div></div>
+                <div className="col"><div className="stat-box text-center"><strong>Apps Script</strong><br/><span className="small">Automation</span></div></div>
+              </div>
+            </div>
+            <div className="col-lg-6 text-center text-lg-end" data-aos="fade-left" data-aos-duration="800">
+              <img src="pp.png" className="profile-img" alt="Febyan Putra" />
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+
+    const About = () => (
+      <section id="about" className="py-5" style={{ background: 'rgba(37,99,235,0.02)' }}>
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col-lg-10" data-aos="fade-up">
+              <h2 className="section-title mb-4">About Me</h2>
+              <div className="glass-card p-4 p-md-5">
+                <p className="fs-5">I'm Febyan, an Information Systems graduate with a strong passion for process automation and web development. My experience spans merchant verification, content registration, and automation using Google Apps Script. I thrive on building efficient, scalable digital solutions that reduce manual work and improve accuracy.</p>
+                <p className="fs-5">With a solid foundation in React, Laravel, JavaScript, and MySQL, I aim to bridge the gap between business needs and technology. I'm detail-oriented, data-driven, and committed to delivering high-quality work.</p>
+                <div className="row mt-4">
+                  <div className="col-sm-6"><i className="bi bi-check-circle-fill text-primary me-2"></i>20,000+ verified merchants</div>
+                  <div className="col-sm-6"><i className="bi bi-check-circle-fill text-primary me-2"></i>99% accuracy in content registration</div>
+                  <div className="col-sm-6"><i className="bi bi-check-circle-fill text-primary me-2"></i>Process automation with Google Apps Script</div>
+                  <div className="col-sm-6"><i className="bi bi-check-circle-fill text-primary me-2"></i>Full-stack web development (React + Laravel)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+
+    const Experience = () => {
+      const exp = [
+        { title: 'KYB Sales Admin – OVO Onboarding Verification', company: 'PT Grab Teknologi Indonesia', period: 'Dec 2025 – Present', desc: ['Verified merchant registrations using Salesforce and Sales Management Portal. Verified KTP, bank accounts, NIB, Deed, NPWP. Verified more than 20,000 merchants. Productivity up to 150 tickets/day. Error rate below 1%.', 'Content Registration: Activated merchants, filtered menus, categorized products. Maintained 99% accuracy. Processed around 130 tickets/day.'] },
+        { title: 'Teaching Assistant', company: 'Universitas Teknologi Yogyakarta', period: '2024', desc: ['Assisted practical sessions using RapidMiner. Explained preprocessing, classification, evaluation, and analytics.'] },
+        { title: 'Administrative', company: 'PT Citra Van Titipan Kilat (TIKI)', period: '2023', desc: ['Shipment administration, Billing, Delivery scheduling, Logistics supervision.'] },
+        { title: 'Administrative & Finance Assistant', company: 'PT Bali Insan Perkasa', period: '2022', desc: ['Administrative documentation, Finance support.'] }
+      ];
+      return (
+        <section id="experience" className="py-5">
+          <div className="container">
+            <h2 className="section-title mb-5" data-aos="fade-up">Work Experience</h2>
+            <div className="row">
+              <div className="col-lg-10 mx-auto">
+                {exp.map((e, i) => (
+                  <div key={i} className="timeline-card" data-aos="fade-up" data-aos-delay={i*50}>
+                    <h5 className="fw-bold">{e.title}</h5>
+                    <div className="d-flex flex-wrap gap-3 mb-2"><span className="badge-soft">{e.company}</span><span className="badge-soft">{e.period}</span></div>
+                    <ul className="list-unstyled small">
+                      {e.desc.map((d, idx) => <li key={idx}><i className="bi bi-chevron-right text-primary me-2"></i>{d}</li>)}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    const Projects = () => {
+  const [currentIndices, setCurrentIndices] = useState({});
+
+  const projects = [
+    { 
+      title: 'Google Apps Script Automation', 
+      desc: 'Developed automation tools in Google Sheets to standardize merchant addresses, compare data with reference sheets, reduce manual work, and minimize errors.', 
+      tech: 'Google Apps Script, Google Sheets', 
+      images: ['sm1.png', 'sm2.png', 'sm3.png']
+    },
+    { 
+      title: 'Library Information System', 
+      desc: 'Built a library management system with QR Code using Laravel and MySQL. Features: Book Management, Borrowing, Returns, Fines, Reports, QR Code.', 
+      tech: 'Laravel, PHP, Bootstrap, MySQL',
+      images: ['projek1.png', 'projek2.png', 'projek3.png', 'projek4.png', 'projek5.png']
+    },
+    { 
+      title: 'GoPark - Parking Reservation App', 
+      desc: 'A complete parking reservation application with real-time availability, map view, filtering, and booking management. Features include user authentication, parking search, reservation, and QR code check-in.', 
+      tech: 'React Native, Firebase, Google Maps API',
+      images: ['gp1.png', 'gp2.png', 'gp3.png']
+    },
+    { 
+      title: 'POS Tiga Dara Mart', 
+      desc: 'A web-based point-of-sale system for retail management. Features include inventory management, sales transactions, reporting, stock alerts, and complete CRUD operations for products, categories, and users.', 
+      tech: 'PHP, Bootstrap, MySQL, JavaScript',
+      images: ['7.png', '8.png', '9.png', '10.png', '11.png', '12.png']
+    }
+  ];
+
+  useEffect(() => {
+    // Initialize current indices
+    const initialIndices = {};
+    projects.forEach((_, index) => {
+      initialIndices[index] = 0;
+    });
+    setCurrentIndices(initialIndices);
+
+    // Set up intervals for each project
+    const intervals = projects.map((project, index) => {
+      return setInterval(() => {
+        setCurrentIndices(prev => ({
+          ...prev,
+          [index]: (prev[index] + 1) % project.images.length
+        }));
+      }, 3000);
+    });
+
+    return () => {
+      intervals.forEach(interval => clearInterval(interval));
+    };
+  }, []);
+
+  return (
+    <section id="projects" className="py-5" style={{ background: 'rgba(13,148,136,0.02)' }}>
+      <div className="container">
+        <h2 className="section-title mb-5" data-aos="fade-up">Projects</h2>
+        <div className="row g-4">
+          {projects.map((project, projectIdx) => (
+            <div className="col-md-6 col-lg-4" key={projectIdx} data-aos="fade-up" data-aos-delay={projectIdx * 100}>
+              <div className="card h-100 glass-card border-0 overflow-hidden">
+                <img 
+                  src={project.images[currentIndices[projectIdx] || 0]} 
+                  className="card-img-top" 
+                  alt={project.title} 
+                  style={{ height: '220px', objectFit: 'cover' }} 
+                />
+                <div className="card-body">
+                  <h5 className="card-title fw-bold">{project.title}</h5>
+                  <p className="card-text small">{project.desc}</p>
+                  <div><span className="badge-soft">{project.tech}</span></div>
+                  <div className="mt-3 d-flex justify-content-center gap-2">
+                    {project.images.map((_, imgIdx) => (
+                      <button 
+                        key={imgIdx}
+                        className={`btn btn-sm rounded-circle ${imgIdx === (currentIndices[projectIdx] || 0) ? 'btn-primary' : 'btn-outline-secondary'}`}
+                        style={{ width: '10px', height: '10px', padding: 0 }}
+                        onClick={() => {
+                          setCurrentIndices(prev => ({
+                            ...prev,
+                            [projectIdx]: imgIdx
+                          }));
+                        }}
+                      />
+                    ))}
+                  </div>
+                  <div className="mt-1 text-center">
+                    <small className="text-secondary">
+                      { (currentIndices[projectIdx] || 0) + 1 } / {project.images.length}
+                    </small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+    const Skills = () => {
+      const groups = [
+        { name: 'Programming', items: ['Laravel', 'React', 'JavaScript', 'PHP', 'HTML', 'CSS'] },
+        { name: 'Database', items: ['MySQL', 'SQL'] },
+        { name: 'Automation', items: ['Google Apps Script'] },
+        { name: 'Business Tools', items: ['Salesforce', 'Sales Management Portal'] },
+        { name: 'Office', items: ['Microsoft Excel', 'Word', 'PowerPoint'] },
+        { name: 'Google Workspace', items: ['Google Sheets', 'Google Docs'] },
+        { name: 'Analytics', items: ['RapidMiner'] }
+      ];
+      return (
+        <section id="skills" className="py-5">
+          <div className="container">
+            <h2 className="section-title mb-5" data-aos="fade-up">Skills</h2>
+            <div className="row g-4">
+              {groups.map((g, i) => (
+                <div className="col-lg-3 col-md-4 col-6" key={i} data-aos="fade-up" data-aos-delay={i*30}>
+                  <div className="glass-card p-3 h-100">
+                    <h6 className="fw-bold mb-2">{g.name}</h6>
+                    {g.items.map(item => <span key={item} className="skill-badge">{item}</span>)}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    const Education = () => (
+      <section id="education" className="py-5" style={{ background: 'rgba(37,99,235,0.02)' }}>
+        <div className="container">
+          <h2 className="section-title mb-4" data-aos="fade-up">Education</h2>
+          <div className="row justify-content-center">
+            <div className="col-lg-8" data-aos="fade-up">
+              <div className="glass-card p-4 p-md-5">
+                <h5 className="fw-bold">Universitas Teknologi Yogyakarta</h5>
+                <p className="mb-1">Bachelor of Information Systems</p>
+                <p className="text-secondary">2021 – 2025</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+
+   const Certificates = () => {
+  const certs = [
+    { 
+      name: 'Applications & Use Cases Professional', 
+      issuer: 'RapidMiner',
+      file: 'febyan-putra-hermawan-Applications & Use Cases Professional-certificate.pdf'
+    },
+    { 
+      name: 'Data Engineering Professional', 
+      issuer: 'RapidMiner',
+      file: 'febyan-putra-hermawan-Data Enginering Profesional-certificate.pdf'
+    },
+    { 
+      name: 'Machine Learning Professional', 
+      issuer: 'RapidMiner',
+      file: 'LULUS-5210311064-FEBYAN PUTRA H.pdf'
+    },
+    { 
+      name: 'HTML Certification', 
+      issuer: 'Certification',
+      file: 'Certificate HTML.pdf'
+    }
+  ];
+
+  return (
+    <section id="certificates" className="py-5">
+      <div className="container">
+        <h2 className="section-title mb-4" data-aos="fade-up">Certifications</h2>
+        <div className="row g-4">
+          {certs.map((c, i) => (
+            <div className="col-md-6 col-lg-3" key={i} data-aos="fade-up" data-aos-delay={i*60}>
+              <div className="glass-card p-4 text-center h-100">
+                <i className="bi bi-award fs-1 text-primary"></i>
+                <h6 className="mt-3 fw-bold">{c.name}</h6>
+                <p className="small text-secondary mb-2">{c.issuer}</p>
+                <a 
+                  href={c.file} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="btn btn-sm gradient-btn"
+                >
+                  <i className="bi bi-file-pdf me-1"></i> View Certificate
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const Contact = () => (
+  <section id="contact" className="py-5" style={{ background: 'rgba(13,148,136,0.02)' }}>
+    <div className="container">
+      <div className="row g-4">
+        <div className="col-lg-5" data-aos="fade-right">
+          <h2 className="section-title">Contact</h2>
+          <p className="text-secondary">Let's connect! Reach out via any of the channels below.</p>
+          <div className="d-flex flex-column gap-3 mt-4">
+            <div>
+              <i className="bi bi-envelope-fill text-primary me-3"></i> 
+              <a href="mailto:febyanputrah14@gmail.com" className="text-decoration-none text-dark">febyanputrah14@gmail.com</a>
+            </div>
+            <div>
+              <i className="bi bi-linkedin text-primary me-3"></i> 
+              <a href="https://linkedin.com/in/febyanputra" target="_blank" rel="noopener noreferrer" className="text-decoration-none text-dark">linkedin.com/in/febyanputra</a>
+            </div>
+            <div>
+              <i className="bi bi-github text-primary me-3"></i> 
+              <a href="https://github.com/byanscool89" target="_blank" rel="noopener noreferrer" className="text-decoration-none text-dark">github.com/febyan</a>
+            </div>
+            <div>
+              <i className="bi bi-whatsapp text-primary me-3"></i> 
+              <a href="https://wa.me/6285174140342" target="_blank" rel="noopener noreferrer" className="text-decoration-none text-dark">+6285174140342</a>
+            </div>
+          </div>
+        </div>
+        <div className="col-lg-7" data-aos="fade-left">
+          <div className="glass-card p-4 p-md-5">
+            <form>
+              <div className="mb-3">
+                <input type="text" className="form-control" placeholder="Your Name" />
+              </div>
+              <div className="mb-3">
+                <input type="email" className="form-control" placeholder="Email" />
+              </div>
+              <div className="mb-3">
+                <textarea className="form-control" rows="4" placeholder="Message"></textarea>
+              </div>
+              <button className="btn gradient-btn w-100">Send Message</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+);     
+    const Footer = () => (
+      <footer className="footer py-4 mt-5">
+        <div className="container text-center text-secondary small">
+          © 2026 Febyan Putra Hermawan · Built with React & Bootstrap
+        </div>
+      </footer>
+    );
+
+    // ----- MAIN APP -----
+    const App = () => {
+      const [darkMode, setDarkMode] = useState(false);
+      useEffect(() => {
+        document.body.classList.toggle('dark-mode', darkMode);
+        AOS.init({ duration: 600, once: true, offset: 40 });
+      }, [darkMode]);
+      const toggleDark = () => setDarkMode(!darkMode);
+
+      return (
+        <>
+          <Navbar darkMode={darkMode} toggleDark={toggleDark} />
+          <Hero />
+          <About />
+          <Experience />
+          <Projects />
+          <Skills />
+          <Education />
+          <Certificates />
+          <Contact />
+          <Footer />
+        </>
+      );
+    };
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+
+  <!-- Bootstrap JS for toggler -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>

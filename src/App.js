@@ -74,10 +74,10 @@ function App() {
                 <a href="#projects" className="btn btn-outline-primary" style={{ borderRadius: '60px', padding: '10px 28px' }}>View Projects</a>
               </div>
               <div className="d-flex gap-3 mt-4">
-                <a href="#" className="btn btn-outline-secondary rounded-circle"><i className="bi bi-github"></i></a>
-                <a href="#" className="btn btn-outline-secondary rounded-circle"><i className="bi bi-linkedin"></i></a>
-                <a href="#" className="btn btn-outline-secondary rounded-circle"><i className="bi bi-envelope"></i></a>
-                <a href="#" className="btn btn-outline-secondary rounded-circle"><i className="bi bi-whatsapp"></i></a>
+                <a href="https://linkedln.com/in/febyanputra" className="btn btn-outline-secondary rounded-circle"><i className="bi bi-github"></i></a>
+                <a href="https://linkedln.com/in/febyanputra" className="btn btn-outline-secondary rounded-circle"><i className="bi bi-linkedin"></i></a>
+                <a href="https://linkedln.com/in/febyanputra" className="btn btn-outline-secondary rounded-circle"><i className="bi bi-envelope"></i></a>
+                <a href="https://linkedln.com/in/febyanputra" className="btn btn-outline-secondary rounded-circle"><i className="bi bi-whatsapp"></i></a>
               </div>
             </div>
             <div className="col-lg-6 text-center" data-aos="fade-left">
